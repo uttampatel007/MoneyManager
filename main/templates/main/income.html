@@ -1,0 +1,42 @@
+{% extends 'main/base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="container-fluid">
+  	<h3 class="mt-4">INCOME</h3>
+  	<br>
+  	<form method="POST">
+   		{% csrf_token %}
+    	{{ form }}
+    	<input type="submit" value="Submit">
+ 	</form>
+
+ 	<br>
+  	<h4>Income Table</h4>
+	<table class="table table-hover">
+	  <thead>
+	    <tr>
+	      <th scope="col">No.</th>
+	      <th scope="col">Date</th>
+	      <th scope="col">Source</th>
+	      <th scope="col">Type</th>
+	      <th scope="col">Mode</th>
+	      <th scope="col">Amount</th>
+	    </tr>
+	  </thead>
+	  <tbody>
+	  	{% for income in incomes %}
+	    <tr>
+	      <th scope="row">{{ forloop.counter }}</th>
+	      <td>{{income.date}}</td>
+	      <td><a href="{% url 'main:income-update' income.id %}">{{income.source}}</td>
+	      <td>{{income.income_type}}</td>
+	      <td>{{income.payment_mode}}</td>
+	      <td>{{income.amount}}</td>
+	    </tr>
+	    {% endfor %}
+	  </tbody>
+	</table>
+</div>
+
+{% endblock %}

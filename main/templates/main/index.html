@@ -1,0 +1,13 @@
+{% extends 'main/base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="container-fluid">
+  <h3 class="mt-4">DASHBOARD</h3>
+  <p>Total Amount: {{amount.total_amount}}/-</p>
+  <p>In Bank: {{amount.in_bank}}/-</p>
+  <p>In Cash: {{amount.in_cash}}/-</p>
+  <a href="admin/main/totalsaving/{{amount.id}}/change/">Edit</a>
+</div>
+
+{% endblock %}
