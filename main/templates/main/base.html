@@ -17,6 +17,15 @@
   <!-- Custom styles for this template -->
   <link href="{% static 'main/css/simple-sidebar.css' %}" rel="stylesheet">
 
+  <!-- Bootstrap core JavaScript -->
+  <script src="{% static 'main/vendor/jquery/jquery.min.js' %}"></script>
+  <script src="{% static 'main/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/datepicker/0.6.5/datepicker.min.css" integrity="sha256-b88RdwbRJEzRx95nCuuva+hO5ExvXXnpX+78h8DjyOE=" crossorigin="anonymous" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/datepicker/0.6.5/datepicker.min.js" integrity="sha256-/7FLTdzP6CfC1VBAj/rsp3Rinuuu9leMRGd354hvk0k=" crossorigin="anonymous"></script>
+  
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+  
 </head>
 
 <body>
@@ -30,7 +39,8 @@
         <a href="{% url 'main:index' %}" class="list-group-item list-group-item-action bg-light">Dashboard</a>
         <a href="{% url 'main:income' %}" class="list-group-item list-group-item-action bg-light">Income</a>
         <a href="{% url 'main:expenditure' %}" class="list-group-item list-group-item-action bg-light">Expenditure</a>
-        <a href="{% url 'main:lend-and-borrow' %}" class="list-group-item list-group-item-action bg-light">Land & Borrow</a>
+        <a href="{% url 'main:money-lended' %}" class="list-group-item list-group-item-action bg-light">Money Lended</a>
+        <a href="{% url 'main:money-borrowed' %}" class="list-group-item list-group-item-action bg-light">Money Borrowed</a>
         <a href="{% url 'main:item-line' %}" class="list-group-item list-group-item-action bg-light">Item Line</a>
         <a href="{% url 'main:trip-line' %}" class="list-group-item list-group-item-action bg-light">Trip Line</a>
         <a href="{% url 'main:income-source' %}" class="list-group-item list-group-item-action bg-light">Income Source</a>
@@ -81,9 +91,9 @@
   </div>
   <!-- /#wrapper -->
 
-  <!-- Bootstrap core JavaScript -->
-  <script src="{% static 'main/vendor/jquery/jquery.min.js' %}"></script>
-  <script src="{% static 'main/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+  {% block script %}
+
+  {% endblock %}
 
   <!-- Menu Toggle Script -->
   <script>

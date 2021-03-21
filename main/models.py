@@ -1,4 +1,6 @@
 from django.db import models
+from django.utils import timezone
+from django.db.models import DEFERRED
 
 
 class TotalSaving(models.Model):
@@ -42,24 +44,31 @@ class Expenditure(models.Model):
 	date = models.DateTimeField(auto_now=True)
 
 
-class ToPay(models.Model):
+class MoneyBorrowed(models.Model):
 	person_name = models.CharField(max_length=50)
 	reason = models.CharField(max_length=100)
 	amount = models.DecimalField(max_digits=10,decimal_places=2)
-	date_borrowed = models.DateTimeField(auto_now=True)
-	return_date = models.DateTimeField()
+	date_borrowed = models.DateField()
+	return_date = models.DateField()
+	created = models.DateTimeField(auto_now=True)
+	returned = models.BooleanField(default=False, blank=True)
 
 
-class YouLended(models.Model):
+class MoneyLended(models.Model):
 	person_name = models.CharField(max_length=50)
 	reason = models.CharField(max_length=100)
 	amount = models.DecimalField(max_digits=10,decimal_places=2)
-	date_lended = models.DateTimeField(auto_now=True)
-	collection_date = models.DateTimeField()
-
+	date_lended = models.DateField()
+	collection_date = models.DateField()
+	created = models.DateTimeField(auto_now=True)
+	collected = models.BooleanField(default=False, blank=True)
+	
 
 class BuyingItemType(models.Model):
 	name = models.CharField(max_length=20)
+
+	def __str__(self):
+		return self.name
 
 
 URGENCY = [
@@ -87,6 +96,31 @@ class BuyingItemList(models.Model):
 	status = models.CharField(choices=STATUS, max_length=20)
 	date_status_changed = models.DateTimeField(blank=True, null=True)
 
+	@classmethod
+	def from_db(cls, db, field_names, values):
+	    # Default implementation of from_db() (subject to change and could
+	    # be replaced with super()).
+	    if len(values) != len(cls._meta.concrete_fields):
+	        values = list(values)
+	        values.reverse()
+	        values = [
+	            values.pop() if f.attname in field_names else DEFERRED
+	            for f in cls._meta.concrete_fields
+	        ]
+	    instance = cls(*values)
+	    instance._state.adding = False
+	    instance._state.db = db
+	    # customization to store the original field values on the instance
+	    instance._loaded_values = dict(zip(field_names, values))
+	    return instance
+
+	def save(self, *args, **kwargs):
+		if not self._state.adding and (self.status != self._loaded_values['status']):
+			self.date_status_changed = timezone.now()
+		super().save(*args, **kwargs)
+
+	def __str__(self):
+		return self.name
 
 TRIP_TYPE = [
 	('ADVANTURE','ADVANTURE'),
@@ -131,8 +165,8 @@ class PossibleIncomeSource(models.Model):
 	date_added = models.DateTimeField(auto_now=True)
 
 
-from django.db.models.signals import pre_save
-from django.dispatch import receiver
+# from django.db.models.signals import pre_save
+# from django.dispatch import receiver
 
 
 # @receiver(pre_save, sender=TotalSaving)

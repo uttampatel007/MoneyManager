@@ -5,8 +5,8 @@ from . models import (
 		Income,
 		ExpenditureType,
 		Expenditure,
-		ToPay,
-		YouLended,
+		MoneyLended,
+		MoneyBorrowed,
 		BuyingItemType,
 		BuyingItemList,
 		TripPlannedList,
@@ -21,8 +21,8 @@ admin.site.register(IncomeType)
 admin.site.register(Income)
 admin.site.register(ExpenditureType)
 admin.site.register(Expenditure)
-admin.site.register(ToPay)
-admin.site.register(YouLended)
+admin.site.register(MoneyLended)
+admin.site.register(MoneyBorrowed)
 admin.site.register(BuyingItemType)
 admin.site.register(BuyingItemList)
 admin.site.register(TripPlannedList)

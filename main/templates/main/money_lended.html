@@ -1,0 +1,55 @@
+{% extends 'main/base.html' %}
+{% load crispy_forms_tags %}
+
+{% load static %}
+{% block content %}
+
+<div class="container-fluid">
+  <h3 class="mt-4">MONEY LENDED <span style="font-size: 20px;float: right;padding-right: 20px">Total Money Lended: {{total_money_lended}}</span></h3>
+  <br>
+  
+  <br>
+  <div class="row">
+  	<div class="col-md-4">
+  		<form method="POST">
+   			{% csrf_token %}
+    		{{ form|crispy }}
+    		<input type="submit" class="btn btn-primary" value="Submit">
+ 		</form>	
+  	</div>
+  	<div class="col-md-8">
+	  	<table class="table table-hover">
+		  <thead>
+		    <tr>
+		      <th scope="col">No.</th>
+		      <th scope="col">Date</th>
+		      <th scope="col">Collection Date</th>
+		      <th scope="col">Person</th>
+		      <th scope="col">Reason</th>
+		      <th scope="col">Amount</th>
+		    </tr>
+		  </thead>
+		  <tbody>
+		  	{% for income in money_lended %}
+		    <tr>
+		      <th scope="row">{{ forloop.counter }}</th>
+		      <td>{{income.date_lended}}</td>
+		      <td>{% if income.collected %}
+		      	 	COLLECTED
+		      	  {% else %}
+		      		{{income.collection_date}}
+		      	  {% endif %}	
+		      </td>
+		      <td><a href="{% url 'main:money-lended-update' income.id %}">{{income.person_name}}</td>
+		      <td>{{income.reason}}</td>
+		      <td>{{income.amount}}</td>
+		    </tr>
+		    {% endfor %}
+		  </tbody>
+		</table>
+  	</div>
+  	
+  </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,39 @@
+{% extends 'main/base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="container-fluid">
+  	<h3 class="mt-4">MONEY BORROWED UPDATE</h3>
+  	<form method="POST">
+   		{% csrf_token %}
+    	{{ form }}
+    	<input type="submit" value="Submit">
+ 	</form>
+</div>
+
+{% endblock %}
+
+{% block script %}
+	<script type="text/javascript">
+		
+		$( document ).ready(function() {
+		    
+		    function formatDate (input) {
+				  var datePart = input.match(/\d+/g),
+				  year = datePart[0], // get only two digits
+				  month = datePart[1], day = datePart[2];
+				  return day+'/'+month+'/'+year;
+			}
+			var old_date = $("#id_return_date").val()
+			console.log(old_date)
+			var date = formatDate(old_date)
+			$("#id_return_date").attr('value',date)
+
+			var old_date = $("#id_date_borrowed").val()
+			var date = formatDate(old_date)
+			$("#id_date_borrowed").attr('value',date)
+		});
+
+
+	</script>
+{% endblock %}
