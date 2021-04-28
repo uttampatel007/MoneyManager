@@ -1,0 +1,20 @@
+{% extends 'main/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}Log In{% endblock %}
+
+{% block content %}
+<style>
+    input {max-width: 40em};
+</style>
+<div class="container-fluid">
+		<h2>Log In</h2>
+		<form method="post">
+	  		{% csrf_token %}
+	  		{{ form|crispy }}
+	  		<button type="submit" class="btn btn-success">Log In</button>
+	  		<p>don't have an account yet? <a href="{% url 'user_profile:signup' %}">Sign Up!</a></p>
+		</form>	
+	</div>
+</div>
+{% endblock %}

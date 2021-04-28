@@ -1,9 +1,12 @@
 from django.db import models
 from django.utils import timezone
 from django.db.models import DEFERRED
+from user_profile.models import User
 
+ 
 
 class TotalSaving(models.Model):
+	user = models.ForeignKey(User, on_delete=models.CASCADE)
 	total_amount = models.DecimalField(max_digits=1000,decimal_places=2, blank=True, null=True)
 	in_cash = models.DecimalField(max_digits=1000,decimal_places=2)
 	in_bank = models.DecimalField(max_digits=1000,decimal_places=2)
@@ -23,6 +26,7 @@ class IncomeType(models.Model):
 
 
 class Income(models.Model):
+	user = models.ForeignKey(User, on_delete=models.CASCADE)
 	source = models.CharField(max_length=30)
 	income_type = models.ForeignKey(IncomeType, on_delete=models.CASCADE)
 	amount = models.DecimalField(max_digits=100, decimal_places=2)

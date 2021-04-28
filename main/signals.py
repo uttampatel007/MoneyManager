@@ -2,7 +2,6 @@ from django.db.models.signals import pre_save
 from django.dispatch import receiver
 from . models import TotalSaving, Income
 
-
 @receiver(pre_save, sender=TotalSaving)
 def update_total_savings(sender, instance, **kwargs):
 	instance.total_amount = instance.in_cash + instance.in_bank

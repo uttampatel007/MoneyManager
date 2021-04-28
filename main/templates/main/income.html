@@ -2,19 +2,24 @@
 {% load static %}
 {% load crispy_forms_tags %}
 {% block content %}
-
+<style type="text/css">
+	.icon-btn {
+	    padding: 1px 15px 3px 2px;
+	    border-radius:50px;
+	}
+</style>
 <div class="container-fluid">
-  	<h3 class="mt-4">INCOME</h3>
+  	<h3 class="mt-4">INCOME
+  		<span>
+	  		<button type="button" class="btn icon-btn btn-primary btn-sm" data-toggle="modal" data-target=".bd-example-modal-lg">
+				<i class="fas fa-plus-circle" style="padding: 5px"></i>
+				ADD
+			</button>
+  		</span>
+  		<span style="font-size: 20px;float: right;padding-right: 20px">Total Income: {{total_income}}</span>
+  	</h3>
   	<br>
-  	<form method="POST">
-   		{% csrf_token %}
-    	{{ form|crispy }}
-    	<input type="submit" value="Submit">
- 	</form>
- 	<br>
- 	<h4> Total Income: {{total_income}} </h4>
- 	<br>
-  	<h4>Income Table</h4>
+  
 	<table class="table table-hover">
 	  <thead>
 	    <tr>
@@ -40,5 +45,17 @@
 	  </tbody>
 	</table>
 </div>
-
+<!-- MODAL -->
+<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+  	
+    <div class="modal-content" style="padding: 20px">
+	     <form method="POST">
+	   		{% csrf_token %}
+	    	{{ form|crispy }}
+	    	<input class="btn btn-primary" type="submit" value="Submit">
+		</form>
+    </div>
+  </div>
+</div>
 {% endblock %}

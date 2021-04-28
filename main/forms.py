@@ -1,4 +1,4 @@
-from . models import Income, Expenditure, MoneyBorrowed, MoneyLended, BuyingItemList
+from . models import Income, Expenditure, MoneyBorrowed, MoneyLended, BuyingItemList, TripPlannedList
 from .widgets import FengyuanChenDatePickerInput
 from django import forms
 
@@ -6,8 +6,8 @@ from django import forms
 class IncomeForm(forms.ModelForm):
 	class Meta:
 		model = Income
-		fields = '__all__'
-
+		exclude = ('user',)
+yu
 
 class ExpenditureForm(forms.ModelForm):
 	class Meta:
@@ -36,3 +36,8 @@ class BuyingItemListForm(forms.ModelForm):
 		model = BuyingItemList
 		exclude = ('date_status_changed',)
 
+
+class TripPlannedListForm(forms.ModelForm):
+	class Meta:
+		model = TripPlannedList
+		exclude = ('date_status_changed',)

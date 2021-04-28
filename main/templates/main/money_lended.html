@@ -3,53 +3,65 @@
 
 {% load static %}
 {% block content %}
-
+<style type="text/css">
+	.icon-btn {
+	    padding: 1px 15px 3px 2px;
+	    border-radius:50px;
+	}
+</style>
 <div class="container-fluid">
-  <h3 class="mt-4">MONEY LENDED <span style="font-size: 20px;float: right;padding-right: 20px">Total Money Lended: {{total_money_lended}}</span></h3>
-  <br>
+  	<h3 class="mt-4">MONEY LENDED
+  		<span>
+	  		<button type="button" class="btn icon-btn btn-primary btn-sm" data-toggle="modal" data-target=".bd-example-modal-lg">
+				<i class="fas fa-plus-circle" style="padding: 5px"></i>
+				ADD
+			</button>
+  		</span>
+  		<span style="font-size: 20px;float: right;padding-right: 20px">Total Money Lended: {{total_money_lended}}</span>
+  	</h3>
+  	<br>
   
-  <br>
-  <div class="row">
-  	<div class="col-md-4">
-  		<form method="POST">
-   			{% csrf_token %}
-    		{{ form|crispy }}
-    		<input type="submit" class="btn btn-primary" value="Submit">
- 		</form>	
-  	</div>
-  	<div class="col-md-8">
-	  	<table class="table table-hover">
-		  <thead>
-		    <tr>
-		      <th scope="col">No.</th>
-		      <th scope="col">Date</th>
-		      <th scope="col">Collection Date</th>
-		      <th scope="col">Person</th>
-		      <th scope="col">Reason</th>
-		      <th scope="col">Amount</th>
-		    </tr>
-		  </thead>
-		  <tbody>
-		  	{% for income in money_lended %}
-		    <tr>
-		      <th scope="row">{{ forloop.counter }}</th>
-		      <td>{{income.date_lended}}</td>
-		      <td>{% if income.collected %}
-		      	 	COLLECTED
-		      	  {% else %}
-		      		{{income.collection_date}}
-		      	  {% endif %}	
-		      </td>
-		      <td><a href="{% url 'main:money-lended-update' income.id %}">{{income.person_name}}</td>
-		      <td>{{income.reason}}</td>
-		      <td>{{income.amount}}</td>
-		    </tr>
-		    {% endfor %}
-		  </tbody>
-		</table>
-  	</div>
+  	<table class="table table-hover">
+	  <thead>
+	    <tr>
+	      <th scope="col">No.</th>
+	      <th scope="col">Date</th>
+	      <th scope="col">Collection Date</th>
+	      <th scope="col">Person</th>
+	      <th scope="col">Reason</th>
+	      <th scope="col">Amount</th>
+	    </tr>
+	  </thead>
+	  <tbody>
+	  	{% for income in money_lended %}
+	    <tr>
+	      <th scope="row">{{ forloop.counter }}</th>
+	      <td>{{income.date_lended}}</td>
+	      <td>{% if income.collected %}
+	      	 	COLLECTED
+	      	  {% else %}
+	      		{{income.collection_date}}
+	      	  {% endif %}	
+	      </td>
+	      <td><a href="{% url 'main:money-lended-update' income.id %}">{{income.person_name}}</td>
+	      <td>{{income.reason}}</td>
+	      <td>{{income.amount}}</td>
+	    </tr>
+	    {% endfor %}
+	  </tbody>
+	</table>
+</div>
+<!-- MODAL FORM -->
+<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
   	
+    <div class="modal-content" style="padding: 20px">
+	     <form method="POST">
+	   		{% csrf_token %}
+	    	{{ form|crispy }}
+	    	<input class="btn btn-primary" type="submit" value="Submit">
+		</form>
+    </div>
   </div>
 </div>
-
 {% endblock %}

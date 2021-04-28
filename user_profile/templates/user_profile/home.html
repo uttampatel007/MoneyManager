@@ -1,0 +1,28 @@
+{% extends 'user_profile/base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+{% if user.is_authenticated %}
+ 	 <div class="jumbotron">
+        <div class="container">
+          <h1 class="display-3">Hello, {{ user.username }}!</h1>
+          <p>Go to file Manager.</p>
+          <p><a class="btn btn-primary btn-lg" href="{% url 'file_upload:basic_upload' %}" role="button">File Manager &raquo;</a></p>
+        </div>
+      </div> 	
+
+
+{% else %}
+<div class="jumbotron">
+        <div class="container">
+          <h1 class="display-3">You are not logged in!</h1>
+          <p>Log In or Sign Up for file manager.</p>
+          <p><a class="btn btn-primary btn-lg" href="{% url 'login' %}" role="button">Log In &raquo;</a></p>
+          <p><a class="btn btn-primary btn-lg" href="{% url 'signup' %}" role="button">Sign Up In &raquo;</a></p>
+
+        </div>
+      </div> 
+
+{% endif %}
+{% endblock %}

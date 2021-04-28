@@ -2,12 +2,39 @@
 {% load static %}
 {% block content %}
 
+<style type="text/css">
+	.padding-card{
+		padding: 40px
+	}
+</style>
 <div class="container-fluid">
-  <h3 class="mt-4">DASHBOARD</h3>
-  <p>Total Amount: {{amount.total_amount}}/-</p>
-  <p>In Bank: {{amount.in_bank}}/-</p>
-  <p>In Cash: {{amount.in_cash}}/-</p>
-  <a href="admin/main/totalsaving/{{amount.id}}/change/">Edit</a>
-</div>
+	<h3 class="mt-4">DASHBOARD</h3>
 
+	<div class="row">
+		<div class="col-md-4 padding-card">
+			<div class="card border-secondary mb-3">
+			  <div class="card-header">Total Amount</div>
+			  <div class="card-body text-secondary">
+			    <h4 class="card-title">{% if amount.total_amount %} {{amount.total_amount}} {% else %} 0 {% endif %}</h4>
+			  </div>
+			</div>
+		</div>
+		<div class="col-md-4 padding-card">
+			<div class="card border-success mb-3">
+			  <div class="card-header">In Bank</div>
+			  <div class="card-body text-secondary">
+			    <h4 class="card-title">{% if amount.in_bank %}{{amount.in_bank}} {% else %} 0 {% endif %}</h4>
+			  </div>
+			</div>
+		</div>
+		<div class="col-md-4 padding-card">
+			<div class="card border-info mb-3">
+			  <div class="card-header">In Cash</div>
+			  <div class="card-body text-secondary">
+			    <h4 class="card-title">{% if amount.in_cash %}{{amount.in_cash}} {% else %} 0 {% endif %}</h4>
+			  </div>
+			</div>
+		</div>
+	</div>
+</div>
 {% endblock %}

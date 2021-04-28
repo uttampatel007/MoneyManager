@@ -7,10 +7,12 @@ from . views import (
         money_lended, 
         money_lended_update,
         money_borrowed, 
-        item_line,
-        trip_line, 
-        income_source,
         money_borrowed_update,
+        item_line,
+        item_line_update,
+        trip_line,
+        trip_line_update,
+        income_source,
     )
 
 app_name = 'main'
@@ -27,6 +29,8 @@ urlpatterns = [
     path('money-borrowed/', money_borrowed, name='money-borrowed'),
     path('money-borrowed/update/<int:pk>/', money_borrowed_update, name='money-borrowed-update'),
     path('item-line/', item_line, name='item-line'),
+    path('item-line/update/<int:pk>/',item_line_update,name='item-line-update'),
     path('trip-line/', trip_line, name='trip-line'),
+    path('trip-line/update/<int:pk>/', trip_line_update, name='trip-line-update'),
     path('income-source/', income_source, name='income-source'),
 ]

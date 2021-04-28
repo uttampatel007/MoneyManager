@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'main',
+    'user_profile',
     'crispy_forms',
 ]
 
@@ -124,3 +125,8 @@ STATIC_ROOT = os.path.join(BASE_DIR, "static")
 
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+
+AUTH_USER_MODEL = 'user_profile.User'
+LOGIN_REDIRECT_URL = 'main:index'
+LOGOUT_REDIRECT_URL = 'main:index'

@@ -3,19 +3,23 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
-
+<style type="text/css">
+	.icon-btn {
+	    padding: 1px 15px 3px 2px;
+	    border-radius:50px;
+	}
+</style>
 <div class="container-fluid">
-  	<h3 class="mt-4">EXPENDITURE</h3>
-  	<br>
-  	<form method="POST">
-   		{% csrf_token %}
-    	{{ form|crispy }}
-    	<input type="submit" value="Submit">
- 	</form>
+  	<h3 class="mt-4">EXPENDITURE
+  		<span>
+	  		<button type="button" class="btn icon-btn btn-primary btn-sm" data-toggle="modal" data-target=".bd-example-modal-lg">
+				<i class="fas fa-plus-circle" style="padding: 5px"></i>
+				ADD
+			</button>
+  		</span>
+  		<span style="font-size: 20px;float: right;padding-right: 20px">Total Expenditure: {{total_expenditure}}</span>
+  	</h3>
  	<br>
- 	<h4>Total Expenditure: {{total_expenditure}}</h4>
- 	<br>
-  	<h4>Expenditure Table</h4>
 	<table class="table table-hover">
 	  <thead>
 	    <tr>
@@ -40,6 +44,20 @@
 	    {% endfor %}
 	  </tbody>
 	</table>
+</div>
+
+<!-- MODAL FORM -->
+<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+  	
+    <div class="modal-content" style="padding: 20px">
+	     <form method="POST">
+	   		{% csrf_token %}
+	    	{{ form|crispy }}
+	    	<input class="btn btn-primary" type="submit" value="Submit">
+		</form>
+    </div>
+  </div>
 </div>
 
 {% endblock %}
